@@ -240,7 +240,7 @@ static int kthread(void *_create)
 
 	ret = -EINTR;
 
-	if (!test_bit(KTHREAD_SHOULD_STOP, &self.flags)) {
+	if (!test_bit(KTHREAD_SHOULD_STOP, &self->flags)) {
 		cgroup_kthread_ready();
 		__kthread_parkme(self);
 		ret = threadfn(data);
