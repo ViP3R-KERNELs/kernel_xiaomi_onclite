@@ -79,8 +79,10 @@ int32_t msm_camera_cci_i2c_read_seq(struct msm_camera_i2c_client *client,
 	}
 
 	buf = kzalloc(num_byte, GFP_KERNEL);
-	if (!buf)
+	if (!buf) {
+		pr_err("%s:%d no memory\n", __func__, __LINE__);
 		return -ENOMEM;
+	}
 	cci_ctrl.cmd = MSM_CCI_I2C_READ;
 	cci_ctrl.cci_info = client->cci_client;
 	cci_ctrl.cfg.cci_i2c_read_cfg.addr = addr;
@@ -162,8 +164,10 @@ int32_t msm_camera_cci_i2c_write_seq(struct msm_camera_i2c_client *client,
 
 	reg_conf_tbl = kzalloc(num_byte *
 		(sizeof(struct msm_camera_i2c_reg_array)), GFP_KERNEL);
-	if (!reg_conf_tbl)
+	if (!reg_conf_tbl) {
+		pr_err("%s:%d no memory\n", __func__, __LINE__);
 		return -ENOMEM;
+	}
 
 	reg_conf_tbl[0].reg_addr = addr;
 	for (i = 0; i < num_byte; i++) {
